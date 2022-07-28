@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface TodoRepository extends JpaRepository<TodoEntity, String> {
+
+    // 사용자 ID로 TodoRepository 검색해서 새 Todo 리스트 반환
     List<TodoEntity> findByUserId(String userId);
 }
