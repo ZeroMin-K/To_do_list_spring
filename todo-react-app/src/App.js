@@ -1,8 +1,9 @@
 import './App.css';
-import { Paper, List } from "@material-ui/core";
+import { Paper, List, Container } from "@material-ui/core";
 
 import React from 'react';
 import Todo from './Todo';
+import AddTodo from "./AddTodo.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,20 @@ class App extends React.Component {
         { id:1, title: "Hello World 2", done: false },
       ]
     };
+  }
+
+  // +버튼 클릭시 Todo아이템 리스트에 추가 
+  add = (item) => {
+    const thisItems = this.state.items;
+    // key를 위한 id 추가
+    item.id = "ID-" + thisItems.length;   
+    // done 초기화
+    item.done = false;      
+    // 리스트에 아이템 추가
+    thisItems.push(item);   
+    // 업데이트는 this.setState로 반드시 진행 
+    this.setState({ items: thisItems });    
+    console.log("items: ", this.state.items);
   }
 
   render() {
@@ -28,7 +43,15 @@ class App extends React.Component {
     );
 
     // 생성된 컴포넌트 리턴 
-    return <div className="App">{todoItems}</div>;
+    return (
+      <div className="App">
+        <Container maxWidth="md">
+          {/* App컴포넌트의 add()함수를 AddTodo의 프로퍼티로 넘겨 AddTodo에서 사용 */}
+          <AddTodo add={this.add} />
+          <div className="TodoList">{todoItems}</div>
+        </Container>
+      </div>
+    );
   }
 }
 
