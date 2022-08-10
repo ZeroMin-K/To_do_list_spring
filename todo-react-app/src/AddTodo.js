@@ -3,7 +3,7 @@ import { TextField, Paper, Button, Grid } from "@material-ui/core";
 
 class AddTodo extends React.Component {
     constructor(props) {
-        super(prorps);
+        super(props);
         this.state = { item: { title: "" } };       // 사용자 입력 저장할 오브젝트 
         // props의 함수를 this.add에 연결 
         this.add = props.add;

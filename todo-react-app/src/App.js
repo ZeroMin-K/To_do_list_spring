@@ -9,10 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [
-        { id:0, title: "Hello World 1", done: true },
-        { id:1, title: "Hello World 2", done: false },
-      ]
+      items: []
     };
   }
 
@@ -30,13 +27,25 @@ class App extends React.Component {
     console.log("items: ", this.state.items);
   }
 
+  // 삭제 아이콘 클릭시 Todo 아이템 삭제
+  delete = (item) => {
+    const thisItems = this.state.items;
+    console.log("Before Update Items: ", this.state.items)
+    // id비교해 매개변수로 넘어온 item과 id같은 경우 제외
+    const newItems = thisItems.filter(e => e.id !== item.id);
+    // 삭제 후 새 items를 stae에 저장 
+    this.setState({ items: newItems }, () => {
+      console.log("Update Items: ", this.state.items)
+    });
+  }
+
   render() {
     // map 함수 사용하여 <Todo/> 컴포넌트 생성 
     var todoItems = this.state.items.length > 0 && (
       <Paper style={{ margin: 16 }}>
         <List>
-          {this.state.items.map((item, idx) => (
-            <Todo item={item} key={item.id} />
+          {this.state.items.map((item, idx) => (  
+            <Todo item={item} key={item.id} delete={this.delete}/>  // Todo컴포넌트 delete 함수 추가 
           ))}
         </List>
       </Paper>
