@@ -14,6 +14,7 @@ class Todo extends React.Component {
         super(props);
         this.state = { item: props.item, readOnly: true };      // title 변경 가능한지 readonly 변수 추가 
         this.delete = props.delete;     // delete함수 연결
+        this.update = props.update;     // update를 this.update에 할당하여 update 함수 연결 
     }
 
     // delete 함수
@@ -34,6 +35,7 @@ class Todo extends React.Component {
     enterKeyEventHandler = (e) => {
         if (e.key === "Enter") {
             this.setState({ readOnly: true});
+            this.update(this.state.item);           // update함수를 통해 todo 아이템 저장 
         }
     }
 
